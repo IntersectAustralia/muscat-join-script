@@ -14,7 +14,6 @@ import datetime
 
 # GLOBALS
 logging.basicConfig(filename='join_check.log',level=logging.DEBUG)
-now = datetime.datetime.now()
 
 host = "localhost"
 user = "join_check"
@@ -68,7 +67,7 @@ conn = MySQLdb.connect(host, user, password, database)
 cursor = conn.cursor()
 
 # start checking
-logging.info("#######################   CHECKING STARTED AT %s   #######################" % now)
+logging.info("#######################   CHECKING STARTED AT %s   #######################" % datetime.datetime.now())
 
 # dictionary holding marc codes for sources joining partners. PLACES is not checked
 source_partner_marc_code = {'people': 100, 'institutions': 852, 'canonic_techniques': 695, 'liturgical_feasts': 657,
@@ -82,10 +81,7 @@ for model in source_partner_marc_code:
         sources_join_check_and_insert(marc_code, model_name)
 
 conn.close()
-logging.info("#######################   CHECKING COMPLETED AT %s   #######################" % now)
+logging.info("#######################   CHECKING COMPLETED AT %s   #######################" % datetime.datetime.now())
 
 # reindex application once complete
 os.system("RAILS_ENV=production bundle exec rake sunspot:reindex")
-
-
-
