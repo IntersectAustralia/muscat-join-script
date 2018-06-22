@@ -15,6 +15,6 @@ and ideally a separate dedicated user. For example,
 ```
 host = "localhost"
 user =  "join_check"
-pword = "python"
+password = "python"
 database = "muscat"
 ``` 
