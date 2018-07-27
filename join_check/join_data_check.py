@@ -28,10 +28,10 @@ def get_sources_join(marc_code):
     sources_result = cursor.fetchall()
     for i in range(len(sources_result)):
         record_index = sources_result[i][0] # source_id
-        marc_all = str(sources_result[i][14]).split('=') # marc data appears in 14th column
+        marc_all = str(sources_result[i][14]).split('\n=') # marc data appears in 14th column
         # search marc data to find data for the particular marc code being used
         for j in range(len(marc_all)):
-            if re.search(('%s ' % marc_code),marc_all[j]):
+            if re.search(('%s  ..\\$' % marc_code),marc_all[j]):
                 partner_id = marc_all[j].replace('\n', ' ').replace('$', ' ').split()[-1]  # save associated partner id for this source record
                 partner_id = re.sub("^0+", "",partner_id)  # strip 0 in numbers 1-9
                 partner_id = re.sub("x", "",partner_id)  # strip x if exists
@@ -85,3 +85,17 @@ logging.info("#######################   CHECKING COMPLETED AT %s   #############
 
 # reindex application once complete
 os.system("RAILS_ENV=production bundle exec rake sunspot:reindex")
+
+
+
+for i in range(len(sources_result)):
+    record_index = sources_result[i][0] # source_id
+    marc_all = str(sources_result[i][14]).split('=[1-9]{3}') # marc data appears in 14th column
+        # search marc data to find data for the particular marc code being used
+    for j in range(len(marc_all)):
+        if re.search(('%s  ..\\$' % marc_code),marc_all[j]):
+            partner_id = marc_all[j].replace('\n', ' ').replace('$', ' ').split()[-1]  # save associated partner id for this source record
+            partner_id = re.sub("^0+", "",partner_id)  # strip 0 in numbers 1-9
+            partner_id = re.sub("x", "",partner_id)  # strip x if exists
+            partner_id = re.sub("w", "",partner_id)
+            join_table.append((int(partner_id), record_index, marc_all[j]))
