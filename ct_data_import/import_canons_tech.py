@@ -13,17 +13,16 @@ It takes two CSV datasets:
 Created by Paddy Tobias, Intersect Australia (July, 2018)
 """
 
-## insert DB globals
-host = <<insert local host>>
-user = <<insert DB user>>
-password = <<insert password>>
-database = <<insert database name>>
-
-
 import csv
 import MySQLdb
 
+## insert DB globals
+host = "localhost"
+database = "insert_database_name"
+user = "insert_user_name"
+password = "insert_user_password"
 
+# DB connection
 conn = MySQLdb.connect(host, user, password, database)
 cursor = conn.cursor()
 

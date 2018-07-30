@@ -11,3 +11,10 @@ It takes two CSV datasets:
 1. The ingest for the authority Canonic Techniques table, canonic_techniques. This file has to be CSV and **must be** in the same table structure as the database table.
 2. The ingest for the source_to_canonic_techniques table. This file has to be CSV and must contain the joining data from canonic_technique_id to source_id
 
+Before the script can be used it will need to be configured with the credentials of the Muscat application database and ideally a separate dedicated user. For example,
+```
+host = "localhost"
+database = "database_name"
+user = "user_name"
+password = "user_password"
+``` 

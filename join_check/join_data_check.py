@@ -15,10 +15,12 @@ import datetime
 # GLOBALS
 logging.basicConfig(filename='join_check.log',level=logging.DEBUG)
 
+## insert DB globals
 host = "localhost"
-user = "join_check"
-password = "python"
-database = "muscat"
+database = "insert_database_name"
+user = "insert_user_name"
+password = "insert_user_password"
+
 
 # for all records in SOURCES table, get source_id and Partner object id and append to join_table. Partner ids are coming from the marc data in the source record (Column 14 in the SOURCES table).
 def get_sources_join(marc_code):
